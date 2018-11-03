@@ -25,6 +25,7 @@ sub strip_stopwords {
   (my $language, my $string) = @_;
   load_stopwords($language) unless (exists($db{$language}));
   return undef unless (exists($db{$language}));
+  $string =~ s/^ +//;
   return join(' ', grep {!exists($db{$language}->{NFC($_)}) and !exists($db{$language}->{lc(NFC($_))})} split(/ +/,$string));
 }
 
